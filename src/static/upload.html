@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enviar Nossas Memórias</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Georgia&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #fde2e7;
+            color: #4a2c2a;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #fff0f5;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 100%;
+            margin-top: 20px; /* Add some margin at the top */
+        }
+        h1 {
+            color: #d83c5a;
+            margin-bottom: 25px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8em;
+        }
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+        label {
+            font-weight: bold;
+            color: #5c3735;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        input[type="file"],
+        input[type="text"] {
+            padding: 12px;
+            border: 1px solid #f7c5d0;
+            border-radius: 8px;
+            width: calc(100% - 26px);
+            font-size: 1em;
+        }
+        input[type="file"]::file-selector-button {
+            background-color: #e91e63;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="file"]::file-selector-button:hover {
+            background-color: #c2185b;
+        }
+        button {
+            background-color: #e91e63;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #c2185b;
+            transform: translateY(-2px);
+        }
+        #message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+        .success {
+            background-color: #e6ffed;
+            color: #006421;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #f5c6cb;
+        }
+        .nav-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #d83c5a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: #c2185b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enviar Nossas Memórias</h1>
+        
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div>
+                <label for="file">Escolha uma foto especial:</label>
+                <input type="file" id="file" name="file" accept="image/*" required>
+            </div>
+            <div>
+                <label for="caption">Legenda para este momento:</label>
+                <input type="text" id="caption" name="caption" placeholder="Escreva uma legenda cheia de amor...">
+            </div>
+            <button type="submit">Enviar Foto</button>
+        </form>
+
+        <div id="message"></div>
+
+        <a href="/" class="nav-link">Voltar para a Surpresa</a>
+    </div>
+
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        const messageDiv = document.getElementById('message');
+
+        uploadForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            messageDiv.innerHTML = '';
+            messageDiv.className = '';
+
+            const formData = new FormData(uploadForm);
+            const fileInput = document.getElementById('file');
+
+            if (!fileInput.files || fileInput.files.length === 0) {
+                messageDiv.textContent = 'Por favor, selecione um arquivo.';
+                messageDiv.className = 'error';
+                return;
+            }
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    messageDiv.textContent = `Foto enviada com sucesso! Você pode voltar para a página inicial para vê-la no carrossel.`;
+                    messageDiv.className = 'success';
+                    uploadForm.reset();
+                } else {
+                    messageDiv.textContent = `Erro: ${result.error || 'Ocorreu um problema ao enviar.'}`;
+                    messageDiv.className = 'error';
+                }
+            } catch (error) {
+                console.error('Erro no upload:', error);
+                messageDiv.textContent = 'Erro de comunicação ao tentar enviar a foto.';
+                messageDiv.className = 'error';
+            }
+        });
+    </script>
+</body>
+</html>
+
