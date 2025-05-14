@@ -114,7 +114,7 @@
 <body>
 
     <audio id="musicaDeFundoSim" loop>
-        <source src="musica_para_sim.mp3" type="audio/mpeg">
+        <source src="musica.mp3" type="audio/mp3">
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
@@ -195,9 +195,9 @@
 
         // Tentar tocar a música após uma interação do utilizador ou com um botão
         // Para autoplay (pode ser bloqueado):
-        // const musicaSim = document.getElementById('musicaDeFundoSim');
-        // musicaSim.play().catch(error => {
-        //     console.log("Autoplay bloqueado, adicione um controle para o usuário iniciar a música: ", error);
+        const musicaSim = document.getElementById('musicaDeFundoSim');
+        musicaSim.play().catch(error => {
+             console.log("Autoplay bloqueado, adicione um controle para o usuário iniciar a música: ", error);
         // });
 
         // Se quiser um botão para tocar/pausar, você precisaria adicionar um botão no HTML
@@ -218,10 +218,11 @@
             });
         }
         // Para tentar o autoplay assim que a página carregar (pode ser bloqueado):
-        // window.addEventListener('load', () => {
-        //     musicaSim.play().catch(e => console.log("Autoplay foi bloqueado pelo navegador."));
-        // });
-        */
+         */
+         window.addEventListener('load', () => {
+             musicaSim.play().catch(e => console.log("Autoplay foi bloqueado pelo navegador."));
+         });
+       
     </script>
 </body>
 </html>
