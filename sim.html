@@ -202,7 +202,7 @@
 
         // Se quiser um botão para tocar/pausar, você precisaria adicionar um botão no HTML
         // e um JavaScript como este:
-        /*
+        
         const musicaSim = document.getElementById('musicaDeFundoSim');
         const botaoPlayPause = document.getElementById('botaoPlayPauseSim'); // Supondo que você crie um botão com este ID
 
@@ -218,7 +218,6 @@
             });
         }
         // Para tentar o autoplay assim que a página carregar (pode ser bloqueado):
-         */
          window.addEventListener('load', () => {
              musicaSim.play().catch(e => console.log("Autoplay foi bloqueado pelo navegador."));
          });
