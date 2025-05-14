@@ -1,11 +1,6 @@
 [
   {
-    "filename": "exemplo_foto1.jpg",
+    "filename": "foto1.jpg",
     "caption": "Nosso primeiro pôr do sol juntos, inesquecível!"
   }
-  // Adicione mais objetos aqui para mais fotos, no formato:
-  // ,{
-  //   "filename": "nome_da_sua_foto.jpg",
-  //   "caption": "Sua legenda aqui"
-  // }
 ]
