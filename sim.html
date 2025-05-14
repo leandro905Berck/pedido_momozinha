@@ -6,7 +6,6 @@
     <title>Sim! Eu aceito!</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
     <style>
-        /* O seu CSS existente permanece aqui... */
         body {
             font-family: 'Georgia', serif;
             background: linear-gradient(135deg, #fce4ec 0%, #ffc1e3 100% );
@@ -109,6 +108,22 @@
             0%, 100% { filter: drop-shadow(0 0 2px gold); transform: scale(1); }
             50% { filter: drop-shadow(0 0 10px gold); transform: scale(1.05); }
         }
+        .music-btn {
+            margin: 18px 0 0 0;
+            padding: 12px 26px;
+            font-size: 1.2em;
+            background: #d83c5a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 3px 12px rgba(216,60,90,0.08);
+            transition: background 0.2s;
+            z-index: 20;
+        }
+        .music-btn:hover {
+            background: #a72d45;
+        }
     </style>
 </head>
 <body>
@@ -117,11 +132,12 @@
         <source src="fotos_casal/musica.mp3" type="audio/mp3">
         Seu navegador não suporta o elemento de áudio.
     </audio>
+    <button id="botaoPlayPauseSim" class="music-btn">Tocar Música</button>
 
     <div class="container-sim">
         <h1>Sim! Mil Vezes Sim!</h1>
         <p>Minha querida Karol, meu coração transborda de felicidade! Mal posso esperar para passarmos o resto das nossas vidas juntos, construindo nosso "para sempre". Este é o começo da nossa mais linda aventura!</p>
-        
+
         <div class="animation-container">
             <div class="cake-animation">
                 <svg class="cake-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -176,6 +192,7 @@
     </div>
 
     <script>
+        // Confetes animados
         function createConfetti() {
             const confettiColors = [ '#e91e63', '#ffeb3b', '#4caf50', '#2196f3', '#ffffff' ];
             for (let i = 0; i < 100; i++) {
@@ -193,35 +210,24 @@
         }
         createConfetti();
 
-        // Tentar tocar a música após uma interação do utilizador ou com um botão
-        // Para autoplay (pode ser bloqueado):
+        // Música de fundo com controle de play/pause
         const musicaSim = document.getElementById('musicaDeFundoSim');
-        musicaSim.play().catch(error => {
-             console.log("Autoplay bloqueado, adicione um controle para o usuário iniciar a música: ", error);
-         });
+        const botaoPlayPause = document.getElementById('botaoPlayPauseSim');
 
-        // Se quiser um botão para tocar/pausar, você precisaria adicionar um botão no HTML
-        // e um JavaScript como este:
-        
-        const musicaSim = document.getElementById('musicaDeFundoSim');
-        const botaoPlayPause = document.getElementById('botaoPlayPauseSim'); // Supondo que você crie um botão com este ID
+        botaoPlayPause.addEventListener('click', () => {
+            if (musicaSim.paused) {
+                musicaSim.play();
+                botaoPlayPause.textContent = 'Pausar Música';
+            } else {
+                musicaSim.pause();
+                botaoPlayPause.textContent = 'Tocar Música';
+            }
+        });
 
-        if (botaoPlayPause) {
-            botaoPlayPause.addEventListener('click', () => {
-                if (musicaSim.paused) {
-                    musicaSim.play();
-                    botaoPlayPause.textContent = 'Pausar Música';
-                } else {
-                    musicaSim.pause();
-                    botaoPlayPause.textContent = 'Tocar Música';
-                }
-            });
-        }
-        // Para tentar o autoplay assim que a página carregar (pode ser bloqueado):
-         window.addEventListener('load', () => {
-             musicaSim.play().catch(e => console.log("Autoplay foi bloqueado pelo navegador."));
-         });
-       
+        // Garante que ao recarregar a página, o botão fique sempre "Tocar Música"
+        window.addEventListener('load', () => {
+            botaoPlayPause.textContent = 'Tocar Música';
+        });
     </script>
 </body>
 </html>
