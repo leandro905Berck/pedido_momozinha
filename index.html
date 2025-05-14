@@ -206,7 +206,7 @@
         async function fetchImagesAndLegends() {
             try {
                 // Caminho relativo para o arquivo JSON dentro da pasta static/data
-                const response = await fetch('./data/manifesto_imagens.json'); 
+                const response = await fetch('data/manifesto_imagens.json'); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status} - Verifique se o arquivo manifesto_imagens.json existe em /data/`);
                 }
@@ -238,7 +238,7 @@
                 
                 const img = document.createElement('img');
                 // O caminho agora é relativo à pasta 'fotos_casal' dentro de 'static'
-                img.src = `./fotos_casal/${imageEntry.filename}`;
+                img.src = `fotos_casal/${imageEntry.filename}`;
                 img.alt = imageEntry.caption || 'Imagem do carrossel';
                 
                 const captionDiv = document.createElement('div');
