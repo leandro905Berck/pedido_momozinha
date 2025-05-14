@@ -8,17 +8,17 @@
     <style>
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #fce4ec 0%, #ffc1e3 100% );
+            background: linear-gradient(135deg, #fce4ec 0%, #ffc1e3 100%);
             color: #4a2c2a;
             margin: 0;
-            padding: 20px; 
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            min-height: 100vh; 
-            overflow-y: auto; 
-            box-sizing: border-box; 
+            min-height: 100vh;
+            overflow-y: auto;
+            box-sizing: border-box;
         }
         .container-sim {
             background-color: rgba(255, 240, 245, 0.95);
@@ -29,19 +29,19 @@
             width: 90%;
             position: relative;
             z-index: 10;
-            margin-top: 20px; 
-            margin-bottom: 50px; 
+            margin-top: 20px;
+            margin-bottom: 50px;
         }
         h1 {
             font-family: 'Great Vibes', cursive;
             color: #d83c5a;
-            font-size: 4.0em; 
+            font-size: 4.0em;
             margin-bottom: 25px;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
             line-height: 1.2;
         }
         p {
-            font-size: 1.3em; 
+            font-size: 1.3em;
             line-height: 1.7;
             margin-bottom: 30px;
             color: #5c3735;
@@ -55,7 +55,7 @@
         }
         .cake-animation {
             width: 200px;
-            height: 250px; 
+            height: 250px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -63,7 +63,7 @@
         }
         .rings-animation {
             width: 220px;
-            height: 150px; 
+            height: 150px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -108,35 +108,43 @@
             0%, 100% { filter: drop-shadow(0 0 2px gold); transform: scale(1); }
             50% { filter: drop-shadow(0 0 10px gold); transform: scale(1.05); }
         }
-        .music-btn {
-            margin: 18px 0 0 0;
-            padding: 12px 26px;
-            font-size: 1.2em;
-            background: #d83c5a;
-            color: #fff;
+        .music-controls {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .music-button {
+            background-color: #e91e63;
+            color: white;
+            padding: 10px 20px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 3px 12px rgba(216,60,90,0.08);
-            transition: background 0.2s;
-            z-index: 20;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
-        .music-btn:hover {
-            background: #a72d45;
+        .music-button:hover {
+            background-color: #c2185b;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
 
-    <audio id="musicaDeFundoSim" autoplay loop>
+    <audio id="musicaDeFundoSim" loop>
+        <!-- ATENÇÃO: Confirme se o nome e o caminho do ficheiro de música estão corretos -->
         <source src="fotos_casal/musica.mp3" type="audio/mp3">
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
     <div class="container-sim">
+        <div class="music-controls">
+            <button id="botaoPlayPauseSim" class="music-button">Tocar Música Ambiente</button>
+        </div>
+
         <h1>Sim! Mil Vezes Sim!</h1>
         <p>Minha querida Karol, meu coração transborda de felicidade! Mal posso esperar para passarmos o resto das nossas vidas juntos, construindo nosso "para sempre". Este é o começo da nossa mais linda aventura!</p>
-
+        
         <div class="animation-container">
             <div class="cake-animation">
                 <svg class="cake-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -163,6 +171,7 @@
                     <circle cx="115" cy="100" r="5" fill="#E91E63"/>
                 </svg>
             </div>
+
             <div class="rings-animation">
                 <svg class="rings-svg" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -191,7 +200,6 @@
     </div>
 
     <script>
-        // Confetes animados
         function createConfetti() {
             const confettiColors = [ '#e91e63', '#ffeb3b', '#4caf50', '#2196f3', '#ffffff' ];
             for (let i = 0; i < 100; i++) {
@@ -209,24 +217,35 @@
         }
         createConfetti();
 
-        // Música de fundo com controle de play/pause
         const musicaSim = document.getElementById('musicaDeFundoSim');
-        const botaoPlayPause = document.getElementById('botaoPlayPauseSim');
+        const botaoPlayPauseSim = document.getElementById('botaoPlayPauseSim');
 
-        botaoPlayPause.addEventListener('click', () => {
-            if (musicaSim.paused) {
-                musicaSim.play();
-                botaoPlayPause.textContent = 'Pausar Música';
-            } else {
-                musicaSim.pause();
-                botaoPlayPause.textContent = 'Tocar Música';
-            }
-        });
-
-        // Garante que ao recarregar a página, o botão fique sempre "Tocar Música"
+        // Tenta o autoplay quando a página carrega
         window.addEventListener('load', () => {
-            botaoPlayPause.textContent = 'Tocar Música';
+            musicaSim.play().then(() => {
+                botaoPlayPauseSim.textContent = 'Pausar Música Ambiente';
+            }).catch(error => {
+                console.log("Autoplay da música na página SIM foi bloqueado pelo navegador. O utilizador precisa de clicar no botão.", error);
+                botaoPlayPauseSim.textContent = 'Tocar Música Ambiente';
+            });
         });
+
+        if (botaoPlayPauseSim) {
+            botaoPlayPauseSim.addEventListener('click', () => {
+                if (musicaSim.paused) {
+                    musicaSim.play().then(() => {
+                         botaoPlayPauseSim.textContent = 'Pausar Música Ambiente';
+                    }).catch(error => {
+                        console.error("Erro ao tentar tocar a música:", error);
+                        // Poderia adicionar uma mensagem para o utilizador aqui se o play falhar por outro motivo
+                    });
+                } else {
+                    musicaSim.pause();
+                    botaoPlayPauseSim.textContent = 'Tocar Música Ambiente';
+                }
+            });
+        }
     </script>
 </body>
 </html>
+
