@@ -202,6 +202,8 @@
         const noImagesMessage = document.getElementById('no-images-message');
         let currentSlide = 0;
         let imagesData = []; // Este array virá do manifesto_imagens.json
+        let carouselInterval = null; // Variável para o temporizador do carrossel
+        const carouselAutoPlayDelay = 20000; // 20 segundos
 
         async function fetchImagesAndLegends() {
             try {
@@ -252,6 +254,7 @@
             currentSlide = 0;
             showSlide(currentSlide);
             updateButtonStates();
+            startCarouselAutoPlay(); // Inicia o carrossel automático
         }
 
         function showSlide(index) {
@@ -274,6 +277,20 @@
             const numSlides = imagesData.length;
             prevButton.disabled = numSlides <= 1 || currentSlide === 0;
             nextButton.disabled = numSlides <= 1 || currentSlide === (numSlides - 1);
+        }
+
+        function startCarouselAutoPlay() {
+            if (imagesData.length > 1) { // Só inicia se houver mais de uma imagem
+                if (carouselInterval) clearInterval(carouselInterval); // Limpa intervalo anterior se existir
+                carouselInterval = setInterval(() => {
+                    showSlide(currentSlide + 1);
+                }, carouselAutoPlayDelay);
+            }
+        }
+
+        function resetCarouselAutoPlay() {
+            if (carouselInterval) clearInterval(carouselInterval);
+            startCarouselAutoPlay();
         }
 
         prevButton.addEventListener('click', () => {
