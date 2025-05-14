@@ -159,9 +159,8 @@
 </head>
 <body>
 
-    <audio id="musicaDeFundoSim" loop>
-        <!-- ATENÇÃO: Confirme se o nome e o caminho do ficheiro de música estão corretos -->
-        <source src="fotos_casal/musica2.mp3" type="audio/mp3">
+    <audio id="musicaDeFundoIndex" loop>
+        <source src="fotos_casal/musica.mp3" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
     </audio>
     
@@ -343,21 +342,35 @@
             fetchImagesAndLegends();
         });
 
+        // Lógica da Música de Fundo
         const musicaIndex = document.getElementById('musicaDeFundoIndex');
         const botaoPlayPauseIndex = document.getElementById('botaoPlayPauseIndex');
 
+        // Event listener para o carregamento completo da página
         window.addEventListener('load', () => {
-            fetchImagesAndLegends();
-            musicaIndex.play().then(() => {
-                botaoPlayPauseIndex.textContent = 'Pausar Música Ambiente';
-            }).catch(error => {
-                console.log("Autoplay da música no INDEX foi bloqueado. O utilizador precisa de clicar no botão.", error);
-                botaoPlayPauseIndex.textContent = 'Tocar Música Ambiente';
-            });
+            fetchImagesAndLegends(); // Carrega dados do carrossel
+
+            if (musicaIndex && botaoPlayPauseIndex) {
+                // Tenta autoplay da música
+                musicaIndex.play().then(() => {
+                    botaoPlayPauseIndex.textContent = 'Pausar Música Ambiente';
+                }).catch(error => {
+                    console.log("Autoplay da música no INDEX foi bloqueado. O utilizador precisa de clicar no botão.", error);
+                    botaoPlayPauseIndex.textContent = 'Tocar Música Ambiente';
+                });
+            } else {
+                if (!musicaIndex) console.error("Elemento de áudio 'musicaDeFundoIndex' não encontrado.");
+                if (!botaoPlayPauseIndex) console.error("Botão 'botaoPlayPauseIndex' não encontrado.");
+            }
         });
 
+        // Event listener para o botão de play/pause da música
         if (botaoPlayPauseIndex) {
             botaoPlayPauseIndex.addEventListener('click', () => {
+                if (!musicaIndex) {
+                    console.error("Elemento de áudio 'musicaDeFundoIndex' não encontrado ao clicar no botão.");
+                    return;
+                }
                 if (musicaIndex.paused) {
                     musicaIndex.play().then(() => {
                         botaoPlayPauseIndex.textContent = 'Pausar Música Ambiente';
@@ -369,8 +382,10 @@
                     botaoPlayPauseIndex.textContent = 'Tocar Música Ambiente';
                 }
             });
+        } else {
+             // Adicionado para debug caso o botão não seja encontrado ao carregar o script
+            console.error("Botão 'botaoPlayPauseIndex' não encontrado no momento de adicionar o event listener.");
         }
-        
     </script>
 </body>
 </html>
