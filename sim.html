@@ -4,23 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sim! Eu aceito!</title>
-    <link rel="icon" type="imagem/png" href="images-removebg-preview.png" />
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Parisienne&display=swap" rel="stylesheet">
     <style>
+        /* O seu CSS existente permanece aqui... */
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #fce4ec 0%, #ffc1e3 100%);
+            background: linear-gradient(135deg, #fce4ec 0%, #ffc1e3 100% );
             color: #4a2c2a;
             margin: 0;
-            padding: 20px; /* Add padding to body */
+            padding: 20px; 
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* justify-content: center; /* Removed to allow content to flow naturally if it exceeds viewport */
             text-align: center;
             min-height: 100vh; 
-            overflow-y: auto; /* Allow vertical scrolling if content overflows */
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            overflow-y: auto; 
+            box-sizing: border-box; 
         }
         .container-sim {
             background-color: rgba(255, 240, 245, 0.95);
@@ -31,19 +30,19 @@
             width: 90%;
             position: relative;
             z-index: 10;
-            margin-top: 20px; /* Add some margin to push content down a bit */
-            margin-bottom: 50px; /* Add margin at the bottom to ensure space for scrolling */
+            margin-top: 20px; 
+            margin-bottom: 50px; 
         }
         h1 {
             font-family: 'Great Vibes', cursive;
             color: #d83c5a;
-            font-size: 4.0em; /* Slightly reduced for better fit on smaller screens */
+            font-size: 4.0em; 
             margin-bottom: 25px;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
             line-height: 1.2;
         }
         p {
-            font-size: 1.3em; /* Slightly reduced for better fit */
+            font-size: 1.3em; 
             line-height: 1.7;
             margin-bottom: 30px;
             color: #5c3735;
@@ -113,84 +112,80 @@
     </style>
 </head>
 <body>
+
+    <audio id="musicaDeFundoSim" loop>
+        <source src="musica_para_sim.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+
     <div class="container-sim">
         <h1>Sim! Mil Vezes Sim!</h1>
-        <p>Minha Momozinha Karol, meu coração transborda de felicidade!! Mal posso esperar para passarmos o resto das nossas vidas juntos, construindo nosso apartamento e nosso futuro juntos. Este é o começo da nossa mais linda vida como dois amores que nasceram para estar juntos para todo o <strong>SEMPRE</strong>!</p>
-        <p>Sou o homem mais feliz de todo o mundo em ter a mulher mais <strong>LINDA</strong>, <strong>PERFEITA</strong> e <strong>MARAVILHOSA</strong> de todo o mundo</p>
+        <p>Minha querida Karol, meu coração transborda de felicidade! Mal posso esperar para passarmos o resto das nossas vidas juntos, construindo nosso "para sempre". Este é o começo da nossa mais linda aventura!</p>
+        
         <div class="animation-container">
             <div class="cake-animation">
                 <svg class="cake-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="frostingGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#FFF5EE;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#FFDAB9;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="cakeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#F5DEB3;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#DEB887;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <rect x="30" y="130" width="140" height="50" rx="10" ry="10" fill="url(#cakeGradient)" stroke="#D2B48C" stroke-width="2"/>
-                    <rect x="45" y="80" width="110" height="50" rx="8" ry="8" fill="url(#cakeGradient)" stroke="#D2B48C" stroke-width="2"/>
-                    <rect x="60" y="30" width="80" height="50" rx="6" ry="6" fill="url(#cakeGradient)" stroke="#D2B48C" stroke-width="2"/>
-                    <path d="M30 130 Q35 120 40 130 T50 130 T60 130 T70 130 T80 130 T90 130 T100 130 T110 130 T120 130 T130 130 T140 130 T150 130 T160 130 T170 130 V135 H30 Z" fill="url(#frostingGradient)"/>
-                    <path d="M45 80 Q50 70 55 80 T65 80 T75 80 T85 80 T95 80 T105 80 T115 80 T125 80 T135 80 T145 80 T155 80 V85 H45 Z" fill="url(#frostingGradient)"/>
-                    <path d="M60 30 Q65 20 70 30 T80 30 T90 30 T100 30 T110 30 T120 30 T130 30 T140 30 V35 H60 Z" fill="url(#frostingGradient)"/>
-                    <path d="M100 15 Q105 5 110 15 Q115 25 100 30 Q85 25 90 15 Q95 5 100 15 Z" fill="#E91E63"/>
-                    <circle cx="70" cy="150" r="5" fill="#E91E63"/>
-                    <circle cx="130" cy="150" r="5" fill="#E91E63"/>
-                    <circle cx="85" cy="100" r="5" fill="#E91E63"/>
-                    <circle cx="115" cy="100" r="5" fill="#E91E63"/>
+                    <!-- SVG do Bolo ... -->
                 </svg>
             </div>
 
             <div class="rings-animation">
                 <svg class="rings-svg" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
-                            <stop offset="50%" style="stop-color:#F0E68C;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
-                        </linearGradient>
-                        <filter id="dropShadow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-                            <feOffset dx="2" dy="2" result="offsetblur"/>
-                            <feFlood flood-color="rgba(0,0,0,0.3)"/>
-                            <feComposite in2="offsetblur" operator="in"/>
-                            <feMerge>
-                                <feMergeNode/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    <circle cx="70" cy="50" r="35" fill="none" stroke="url(#goldGradient)" stroke-width="12" filter="url(#dropShadow)"/>
-                    <circle cx="130" cy="50" r="35" fill="none" stroke="url(#goldGradient)" stroke-width="12" filter="url(#dropShadow)" style="transform-origin: center; transform: translateX(-20px) rotate(-15deg);"/>
+                    <!-- SVG das Alianças ... -->
                 </svg>
                 <div class="rings-names">Leandro & Karol</div>
             </div>
         </div>
     </div>
 
-    <audio id="weeding" src="fotos_casal/musica.mp3" loop></audio>
-
     <script>
-        function createConfetti() {
+        // Script para confetes ...
+        function createConfetti( ) {
             const confettiColors = [ '#e91e63', '#ffeb3b', '#4caf50', '#2196f3', '#ffffff' ];
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 100; i++) { 
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
                 confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's'; 
+                confetti.style.animationDelay = Math.random() * 2 + 's'; 
                 confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
-                confetti.style.width = (Math.random() * 8 + 4) + 'px';
+                confetti.style.width = (Math.random() * 8 + 4) + 'px'; 
                 confetti.style.height = confetti.style.width;
-                confetti.style.opacity = Math.random() * 0.5 + 0.5;
+                confetti.style.opacity = Math.random() * 0.5 + 0.5; 
                 document.body.appendChild(confetti);
-                audioElement.play();
             }
         }
         createConfetti();
+
+        // Tentar tocar a música após uma interação do utilizador ou com um botão
+        // Para autoplay (pode ser bloqueado):
+        // const musicaSim = document.getElementById('musicaDeFundoSim');
+        // musicaSim.play().catch(error => {
+        //     console.log("Autoplay bloqueado, adicione um controle para o usuário iniciar a música: ", error);
+        // });
+
+        // Se quiser um botão para tocar/pausar, você precisaria adicionar um botão no HTML
+        // e um JavaScript como este:
+        /*
+        const musicaSim = document.getElementById('musicaDeFundoSim');
+        const botaoPlayPause = document.getElementById('botaoPlayPauseSim'); // Supondo que você crie um botão com este ID
+
+        if (botaoPlayPause) {
+            botaoPlayPause.addEventListener('click', () => {
+                if (musicaSim.paused) {
+                    musicaSim.play();
+                    botaoPlayPause.textContent = 'Pausar Música';
+                } else {
+                    musicaSim.pause();
+                    botaoPlayPause.textContent = 'Tocar Música';
+                }
+            });
+        }
+        // Para tentar o autoplay assim que a página carregar (pode ser bloqueado):
+        // window.addEventListener('load', () => {
+        //     musicaSim.play().catch(e => console.log("Autoplay foi bloqueado pelo navegador."));
+        // });
+        */
     </script>
 </body>
 </html>
