@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido de Noivado Surpresa</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #fde2e7;
+            color: #4a2c2a;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .container {
+            background-color: #fff0f5;
+            padding: 30px 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            max-width: 700px;
+            width: 100%;
+        }
+        h1, h2 {
+            color: #d83c5a;
+            margin-bottom: 25px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8em;
+        }
+        h2 {
+            font-size: 2.2em;
+        }
+        #carousel-section {
+            margin-top: 20px;
+            width: 100%;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            background-color: #ffffff;
+            padding: 15px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .carousel-slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 450px;
+            border-radius: 10px;
+            object-fit: contain;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .carousel-slide .caption {
+            font-size: 1.1em;
+            color: #5c3735;
+            padding: 8px 0;
+            min-height: 45px;
+            font-style: italic;
+        }
+        .carousel-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .carousel-button {
+            background-color: #e91e63;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin: 0 12px;
+        }
+        .carousel-button:hover {
+            background-color: #c2185b;
+            transform: translateY(-2px);
+        }
+        #no-images-message {
+            color: #777;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        #proposal-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px dashed #e91e63;
+            text-align: justify;
+        }
+        .romantic-text p {
+            margin-bottom: 1.5em;
+            font-size: 1.15em;
+            color: #4a2c2a;
+        }
+        .proposal-question {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #d83c5a;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+        }
+        .proposal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+            position: relative;
+            height: 100px;
+            align-items: flex-start;
+        }
+        .action-button {
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .action-button:hover {
+            transform: translateY(-2px);
+        }
+        .action-button#noButton {
+            background-color: #757575;
+            position: absolute;
+            transition: top 0.2s ease-out, left 0.2s ease-out;
+        }
+        .action-button#noButton:hover {
+            background-color: #505050;
+        }
+        .action-button#yesButton {
+             background-color: #4CAF50;
+        }
+        .action-button#yesButton:hover {
+             background-color: #388E3C;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Georgia&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Para Minha Amada Karol</h1>
+
+        <div id="carousel-section">
+            <h2>Nossos Momentos Inesquecíveis</h2>
+            <div class="carousel-container">
+                <div class="carousel-slides" id="carouselSlides">
+                    <!-- Slides serão inseridos aqui pelo JavaScript -->
+                </div>
+            </div>
+            <div class="carousel-buttons">
+                <button class="carousel-button" id="prevButton" disabled>Anterior</button>
+                <button class="carousel-button" id="nextButton" disabled>Próxima</button>
+            </div>
+            <p id="no-images-message">Carregando nossas memórias...</p>
+        </div>
+
+        <div id="proposal-section">
+            <div class="romantic-text" id="romanticTextContainer">
+                <p>Minha amada Karol, minha eterna momozinha,</p>
+                <p>Desde o instante em que nossos caminhos se cruzaram, uma nova melodia começou a tocar em minha vida, uma canção que fala de cumplicidade, de risadas compartilhadas sob o sol e de abraços que aquecem a alma nas noites mais frias. Cada momento ao seu lado é como descobrir um novo verso dessa canção, uma nova cor em uma pintura que se torna mais vibrante e cheia de significado a cada dia que passa. Lembro-me dos nossos primeiros encontros, daquele brilho nos seus olhos que me capturou e da forma como seu sorriso se tornou o meu refúgio favorito. As nossas aventuras, desde as mais simples até as mais grandiosas, foram tecendo uma história única, a nossa história, repleta de capítulos que eu guardo com um carinho imenso no coração.</p>
+                <p>Você me ensinou o verdadeiro significado de parceria, de olhar na mesma direção e de construir sonhos a dois. Com você, aprendi que o amor não é apenas um sentimento, mas uma escolha diária, um compromisso de cuidar, respeitar e admirar a pessoa que temos ao nosso lado. Sua força me inspira, sua doçura me encanta e sua inteligência me fascina. Ver o mundo através dos seus olhos me mostrou perspectivas que eu jamais imaginei, e por isso, sou imensamente grato. Cada detalhe seu, desde a forma como você ri até a maneira como enfrenta os desafios, compõe a mulher incrível pela qual me apaixonei e continuo me apaixonando todos os dias.</p>
+                <p>Olhando para trás, para todas as memórias que construímos juntos, para cada obstáculo que superamos de mãos dadas e para cada alegria que multiplicamos ao compartilhar, meu coração se enche de uma certeza avassaladora. Uma certeza de que não imagino meus dias sem a sua presença, sem o seu amor, sem você. Você é a peça que faltava no quebra-cabeça da minha felicidade, a âncora que me dá segurança e o farol que ilumina o meu futuro. E é pensando em todos os amanhãs que desejo viver ao seu lado, em todas as novas canções que ainda vamos compor e em todos os sonhos que ainda vamos realizar, que uma pergunta se forma em meu peito, uma pergunta que carrega todo o meu amor e a minha esperança.</p>
+            </div>
+            <p class="proposal-question">Quer se casar comigo?</p>
+            <div class="proposal-buttons">
+                <button class="action-button" id="yesButton">SIM!</button>
+                <button class="action-button" id="noButton">Não?</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const carouselSlides = document.getElementById('carouselSlides');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        const noImagesMessage = document.getElementById('no-images-message');
+        let currentSlide = 0;
+        let imagesData = []; // Este array virá do manifesto_imagens.json
+
+        async function fetchImagesAndLegends() {
+            try {
+                // Caminho relativo para o arquivo JSON dentro da pasta static/data
+                const response = await fetch('./data/manifesto_imagens.json'); 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - Verifique se o arquivo manifesto_imagens.json existe em /data/`);
+                }
+                imagesData = await response.json();
+                renderCarousel();
+            } catch (error) {
+                console.error('Erro ao buscar imagens e legendas:', error);
+                noImagesMessage.textContent = 'Erro ao carregar as memórias. Verifique o console para mais detalhes e o arquivo manifesto_imagens.json.';
+                noImagesMessage.style.display = 'block';
+                carouselSlides.innerHTML = '';
+            }
+        }
+
+        function renderCarousel() {
+            carouselSlides.innerHTML = '';
+            if (!imagesData || imagesData.length === 0) {
+                noImagesMessage.textContent = 'Ainda não há fotos. Adicione algumas na pasta fotos_casal e configure as legendas em data/manifesto_imagens.json!';
+                noImagesMessage.style.display = 'block';
+                prevButton.disabled = true;
+                nextButton.disabled = true;
+                carouselSlides.style.transform = 'translateX(0%)';
+                return;
+            }
+            noImagesMessage.style.display = 'none';
+
+            imagesData.forEach(imageEntry => {
+                const slide = document.createElement('div');
+                slide.className = 'carousel-slide';
+                
+                const img = document.createElement('img');
+                // O caminho agora é relativo à pasta 'fotos_casal' dentro de 'static'
+                img.src = `./fotos_casal/${imageEntry.filename}`;
+                img.alt = imageEntry.caption || 'Imagem do carrossel';
+                
+                const captionDiv = document.createElement('div');
+                captionDiv.className = 'caption';
+                captionDiv.textContent = imageEntry.caption || '';
+                
+                slide.appendChild(img);
+                slide.appendChild(captionDiv);
+                carouselSlides.appendChild(slide);
+            });
+            currentSlide = 0;
+            showSlide(currentSlide);
+            updateButtonStates();
+        }
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (!slides.length) return;
+            // Corrigido para evitar erro quando currentSlide é 0 e se tenta acessar slides.length -1
+            if (index >= slides.length) {
+                currentSlide = 0;
+            } else if (index < 0) {
+                currentSlide = slides.length - 1;
+            } else {
+                currentSlide = index;
+            }
+            
+            carouselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            updateButtonStates();
+        }
+
+        function updateButtonStates() {
+            const numSlides = imagesData.length;
+            prevButton.disabled = numSlides <= 1 || currentSlide === 0;
+            nextButton.disabled = numSlides <= 1 || currentSlide === (numSlides - 1);
+        }
+
+        prevButton.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+        });
+
+        nextButton.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+        });
+
+        // Proposal buttons logic
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const proposalButtonsContainer = document.querySelector('.proposal-buttons');
+
+        yesButton.addEventListener('click', () => {
+            window.location.href = 'sim.html';
+        });
+
+        noButton.addEventListener('mouseover', () => {
+            moveButtonRandomly(noButton, proposalButtonsContainer);
+        });
+        
+        noButton.addEventListener('click', (event) => {
+            event.preventDefault();
+            moveButtonRandomly(noButton, proposalButtonsContainer);
+        });
+
+        function moveButtonRandomly(button, container) {
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
+            const maxTop = container.clientHeight - buttonRect.height;
+            const maxLeft = container.clientWidth - buttonRect.width;
+            let newTop = Math.random() * maxTop;
+            let newLeft = Math.random() * maxLeft;
+            button.style.position = 'absolute';
+            button.style.top = `${newTop}px`;
+            button.style.left = `${newLeft}px`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchImagesAndLegends();
+        });
+
+    </script>
+</body>
+</html>
+
