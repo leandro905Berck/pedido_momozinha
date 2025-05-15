@@ -151,6 +151,25 @@
         .action-button#yesButton:hover {
              background-color: #388E3C;
         }
+        .music-controls {
+            margin-top: 15px;
+            margin-bottom: 25px; 
+        }
+        .music-button {
+            background-color: #e91e63;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .music-button:hover {
+            background-color: #c2185b;
+            transform: translateY(-2px);
+        }
         .red-heart {
             color: red;
         }
@@ -158,19 +177,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Georgia&display=swap" rel="stylesheet">
 </head>
 <body>
-
+    <!-- Elemento de áudio para a música de fundo -->
     <audio id="musicaDeFundoIndex" loop>
-        <source src="fotos_casal/musica.mp3" type="audio/mpeg">
+        <source src="fotos_casal/musica2.mp3" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
     </audio>
 
-    <div class="container-sim">
-        <div class="music-controls">
-            <!--<button id="musicaDeFundoIndex" class="music-button">Tocar Música Ambiente</button>-->
-        </div>
-    
+    <!-- Removida a div .container-sim que parecia extra -->
     <div class="container">
         <h1>Para Minha Amada Karol</h1>
+
+        <!-- Botão de controlo da música -->
+        <div class="music-controls">
+            <!--<button id="botaoPlayPauseIndex" class="music-button">Tocar Música Ambiente</button>-->
+        </div>
 
         <div id="carousel-section">
             <h2>Nossos Momentos Inesquecíveis</h2>
@@ -212,13 +232,12 @@
         const nextButton = document.getElementById('nextButton');
         const noImagesMessage = document.getElementById('no-images-message');
         let currentSlide = 0;
-        let imagesData = []; // Este array virá do manifesto_imagens.json
-        let carouselInterval = null; // Variável para o temporizador do carrossel
-        const carouselAutoPlayDelay = 20000; // 20 segundos
+        let imagesData = [];
+        let carouselInterval = null;
+        const carouselAutoPlayDelay = 20000;
 
         async function fetchImagesAndLegends() {
             try {
-                // Caminho relativo para o arquivo JSON dentro da pasta static/data
                 const response = await fetch('data/manifesto_imagens.json'); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status} - Verifique se o arquivo manifesto_imagens.json existe em /data/`);
@@ -248,16 +267,12 @@
             imagesData.forEach(imageEntry => {
                 const slide = document.createElement('div');
                 slide.className = 'carousel-slide';
-                
                 const img = document.createElement('img');
-                // O caminho agora é relativo à pasta 'fotos_casal' dentro de 'static'
                 img.src = `fotos_casal/${imageEntry.filename}`;
                 img.alt = imageEntry.caption || 'Imagem do carrossel';
-                
                 const captionDiv = document.createElement('div');
                 captionDiv.className = 'caption';
                 captionDiv.textContent = imageEntry.caption || '';
-                
                 slide.appendChild(img);
                 slide.appendChild(captionDiv);
                 carouselSlides.appendChild(slide);
@@ -265,21 +280,20 @@
             currentSlide = 0;
             showSlide(currentSlide);
             updateButtonStates();
-            startCarouselAutoPlay(); // Inicia o carrossel automático
+            startCarouselAutoPlay();
         }
 
         function showSlide(index) {
             const slides = document.querySelectorAll('.carousel-slide');
-            if (!slides.length) return;
-            // Corrigido para evitar erro quando currentSlide é 0 e se tenta acessar slides.length -1
-            if (index >= slides.length) {
+            if (!slides.length || imagesData.length <= 1) return;
+            
+            if (index >= imagesData.length) {
                 currentSlide = 0;
             } else if (index < 0) {
-                currentSlide = slides.length - 1;
+                currentSlide = imagesData.length - 1;
             } else {
                 currentSlide = index;
             }
-            
             carouselSlides.style.transform = `translateX(-${currentSlide * 100}%)`;
             updateButtonStates();
         }
@@ -291,8 +305,8 @@
         }
 
         function startCarouselAutoPlay() {
-            if (imagesData.length > 1) { // Só inicia se houver mais de uma imagem
-                if (carouselInterval) clearInterval(carouselInterval); // Limpa intervalo anterior se existir
+            if (imagesData.length > 1) {
+                if (carouselInterval) clearInterval(carouselInterval);
                 carouselInterval = setInterval(() => {
                     showSlide(currentSlide + 1);
                 }, carouselAutoPlayDelay);
@@ -305,14 +319,19 @@
         }
 
         prevButton.addEventListener('click', () => {
-            showSlide(currentSlide - 1);
+            if (imagesData.length > 1) {
+                showSlide(currentSlide - 1);
+                resetCarouselAutoPlay();
+            }
         });
 
         nextButton.addEventListener('click', () => {
-            showSlide(currentSlide + 1);
+            if (imagesData.length > 1) {
+                showSlide(currentSlide + 1);
+                resetCarouselAutoPlay();
+            }
         });
 
-        // Proposal buttons logic
         const yesButton = document.getElementById('yesButton');
         const noButton = document.getElementById('noButton');
         const proposalButtonsContainer = document.querySelector('.proposal-buttons');
@@ -342,41 +361,41 @@
             button.style.left = `${newLeft}px`;
         }
 
+        // Lógica da Música de Fundo para index.html
+        const musicaIndex = document.getElementById('musicaDeFundoIndex');
+        const botaoPlayPauseIndex = document.getElementById('botaoPlayPauseIndex'); // ID correto do botão
 
         document.addEventListener('DOMContentLoaded', () => {
-            fetchImagesAndLegends();
+            fetchImagesAndLegends(); // Carrega dados do carrossel
+
+            if (musicaIndex && botaoPlayPauseIndex) {
+                // Tenta autoplay da música
+                musicaIndex.play().then(() => {
+                    botaoPlayPauseIndex.textContent = 'Pausar Música Ambiente';
+                }).catch(error => {
+                    console.log("Autoplay da música no INDEX foi bloqueado. O utilizador precisa de clicar no botão.", error);
+                    botaoPlayPauseIndex.textContent = 'Tocar Música Ambiente';
+                });
+
+                // Event listener para o botão de play/pause da música
+                botaoPlayPauseIndex.addEventListener('click', () => {
+                    if (musicaIndex.paused) {
+                        musicaIndex.play().then(() => {
+                            botaoPlayPauseIndex.textContent = 'Pausar Música Ambiente';
+                        }).catch(error => {
+                            console.error("Erro ao tentar tocar a música no index:", error);
+                        });
+                    } else {
+                        musicaIndex.pause();
+                        botaoPlayPauseIndex.textContent = 'Tocar Música Ambiente';
+                    }
+                });
+            } else {
+                if (!musicaIndex) console.error("Elemento de áudio 'musicaDeFundoIndex' não encontrado.");
+                if (!botaoPlayPauseIndex) console.error("Botão 'botaoPlayPauseIndex' não encontrado.");
+            }
         });
 
-        // Lógica da Música de Fundo
-        const musicaSim = document.getElementById('musicaDeFundoIndex');
-        const botaoPlayPauseSim = document.getElementById('botaoPlayPauseSim');
-
-        // Tenta o autoplay quando a página carrega
-        window.addEventListener('load', () => {
-            musicaSim.play().then(() => {
-                botaoPlayPauseSim.textContent = 'Pausar Música Ambiente';
-            }).catch(error => {
-                console.log("Autoplay da música na página SIM foi bloqueado pelo navegador. O utilizador precisa de clicar no botão.", error);
-                botaoPlayPauseSim.textContent = 'Tocar Música Ambiente';
-            });
-        });
-
-        if (botaoPlayPauseSim) {
-            botaoPlayPauseSim.addEventListener('click', () => {
-                if (musicaSim.paused) {
-                    musicaSim.play().then(() => {
-                         botaoPlayPauseSim.textContent = 'Pausar Música Ambiente';
-                    }).catch(error => {
-                        console.error("Erro ao tentar tocar a música:", error);
-                        // Poderia adicionar uma mensagem para o utilizador aqui se o play falhar por outro motivo
-                    });
-                } else {
-                    musicaSim.pause();
-                    botaoPlayPauseSim.textContent = 'Tocar Música Ambiente';
-                }
-            });
-        }
     </script>
 </body>
 </html>
-
