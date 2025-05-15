@@ -365,6 +365,9 @@
         const musicaIndex = document.getElementById('musicaDeFundoIndex');
         const botaoPlayPauseIndex = document.getElementById('botaoPlayPauseIndex'); // ID correto do botão
 
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchImagesAndLegends(); // Carrega dados do carrossel
+        
         // Tenta o autoplay quando a página carrega
         window.addEventListener('load', () => {
             musicaIndex.play().then(() => {
