@@ -189,7 +189,7 @@
 
         <!-- Botão de controlo da música -->
         <div class="music-controls">
-            <!--<button id="botaoPlayPauseIndex" class="music-button">Tocar Música Ambiente</button>-->
+            <button id="botaoPlayPauseIndex" class="music-button">Tocar Música Ambiente</button>
         </div>
 
         <div id="carousel-section">
@@ -367,32 +367,36 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             fetchImagesAndLegends(); // Carrega dados do carrossel
-        
-        // Tenta o autoplay quando a página carrega
-        window.addEventListener('load', () => {
-            musicaIndex.play().then(() => {
-                botaoPlayPauseIndex.textContent = 'Pausar Música Ambiente';
-            }).catch(error => {
-                console.log("Autoplay da música na página SIM foi bloqueado pelo navegador. O utilizador precisa de clicar no botão.", error);
-                botaoPlayPauseIndex.textContent = 'Tocar Música Ambiente';
-            });
+
+            if (musicaIndex && botaoPlayPauseIndex) {
+                // Tenta autoplay da música
+                musicaIndex.play().then(() => {
+                    botaoPlayPauseIndex.textContent = 'Pausar Música Ambiente';
+                }).catch(error => {
+                    console.log("Autoplay da música no INDEX foi bloqueado. O utilizador precisa de clicar no botão.", error);
+                    botaoPlayPauseIndex.textContent = 'Tocar Música Ambiente';
+                });
+
+                // Event listener para o botão de play/pause da música
+                botaoPlayPauseIndex.addEventListener('click', () => {
+                    if (musicaIndex.paused) {
+                        musicaIndex.play().then(() => {
+                            botaoPlayPauseIndex.textContent = 'Pausar Música Ambiente';
+                        }).catch(error => {
+                            console.error("Erro ao tentar tocar a música no index:", error);
+                        });
+                    } else {
+                        musicaIndex.pause();
+                        botaoPlayPauseIndex.textContent = 'Tocar Música Ambiente';
+                    }
+                });
+            } else {
+                if (!musicaIndex) console.error("Elemento de áudio 'musicaDeFundoIndex' não encontrado.");
+                if (!botaoPlayPauseIndex) console.error("Botão 'botaoPlayPauseIndex' não encontrado.");
+            }
         });
 
-        if (botaoPlayPauseIndex) {
-            botaoPlayPauseIndex.addEventListener('click', () => {
-                if (musicaIndex.paused) {
-                    musicaIndex.play().then(() => {
-                         botaoPlayPauseIndex.textContent = 'Pausar Música Ambiente';
-                    }).catch(error => {
-                        console.error("Erro ao tentar tocar a música:", error);
-                        // Poderia adicionar uma mensagem para o utilizador aqui se o play falhar por outro motivo
-                    });
-                } else {
-                    musicaIndex.pause();
-                    botaoPlayPauseIndex.textContent = 'Tocar Música Ambiente';
-                }
-            });
-        }
     </script>
 </body>
 </html>
+
